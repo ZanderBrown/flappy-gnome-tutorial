@@ -1,0 +1,60 @@
+layout {
+  background-color: #ADD5F7;
+}
+
+gamearea button {
+  background-image: -gtk-gradient (linear,
+               0 0, 1 0,
+               color-stop(0, shade(#84BF04, 1.2)),
+               color-stop(0.5, #84BF04),
+               color-stop(0.55, #84BF04),
+               color-stop(1, shade(#84BF04, 0.8)));
+  border: 3px solid #827772;
+}
+
+box .image-button {
+  background-image: none;
+  background-color: #84BF04;
+  border: 1px solid #827772;
+  border-radius: 12px;
+}
+
+box .image-button:hover {
+  background-color: shade (#84BF04, 1.1);
+}
+
+box .image-button:active {
+  background-color: shade (#84BF04, 1.2);
+}
+
+.top {
+  border-top: none;
+  border-radius:0 0 12px 12px;
+}
+
+.bottom {
+  border-bottom: none;
+  border-radius:12px 12px 0 0;
+}
+
+label {
+  padding:10px;
+  background-color:alpha(black, 0.5);
+  border-radius:6px;
+  color: #EFC94C;
+  font-size: 16px;
+}
+
+arrow {
+  color: black;
+}
+
+scrollbar {
+  background-color:transparent;
+}
+
+.ground {
+  background-color: #CBAF8D;
+  border: none;
+  border-top: 3px solid #685B54;
+}
