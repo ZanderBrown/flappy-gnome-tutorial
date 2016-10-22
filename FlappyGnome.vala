@@ -30,6 +30,10 @@ private class GameArea : Gtk.Layout {                           // Our GameArea 
     private int score = 0;                                      // the game score
     private uint animation_callback_id = 0;                     // the id of the animation callback
 
+    class construct {
+        set_css_name ("gamearea");                              // set CSS name for styling
+    }
+
     public GameArea () {
         birdie = new Gtk.Image ();                              // Create the image for the player
         try {
@@ -222,12 +226,19 @@ int main (string[] args) {
 
     Gtk.init (ref args);
 
+    string css;
+    if (Gtk.check_version (3, 20, 0) == null) {                 // check GTK version
+        css = "flappy-3.20.css";                                // use new CSS file on >= 3.20
+    } else {
+        css = "flappy.css";
+    }
+
     var css_provider = new Gtk.CssProvider ();                  // Initialize a CSS provider
     try {
-        css_provider.load_from_path ("flappy.css");             // from the flappy.css file in the current directory
+        css_provider.load_from_path (css);                      // from the css file in the current directory
     } catch (GLib.Error e) {
         warning ("Error loading css styles from %s: %s",        // warn in case of an error
-                    "flappy.css", e.message);
+                    css, e.message);
     }
 
     Gtk.StyleContext.add_provider_for_screen (                  // use the css provider
@@ -286,4 +297,3 @@ int main (string[] args) {
     Gtk.main ();                                                // Start the application
     return 0;
 }
-
