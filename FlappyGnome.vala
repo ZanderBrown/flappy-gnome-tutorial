@@ -212,7 +212,7 @@ private class GameArea : Gtk.Layout {                           // Our GameArea 
     }
 
     private Gdk.Rectangle get_rectangle (int x, int y, int width, int height) { // build a bounding box with a given parameters
-        Gdk.Rectangle rect = new Gdk.Rectangle();
+        Gdk.Rectangle rect = Gdk.Rectangle();
         rect.x = x;
         rect.y = y;
         rect.width = width;
