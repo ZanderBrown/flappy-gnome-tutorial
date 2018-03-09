@@ -1,8 +1,6 @@
 namespace Flappy { 
 	private class GameArea : Gtk.Layout {                           // Our GameArea inherits from Gtk.Layout to support
                                                                     // adding child components, absolute positioning, scrolling
-        public signal void score_changed (int score);               // signal emitted at each score update, e.g. for updating a score widget
-
         private Gdk.Pixbuf bird_up;
         private Gdk.Pixbuf bird_down;
 
@@ -12,14 +10,14 @@ namespace Flappy {
         private float vertical_speed = 0;                           // The current vertical movement speed of the player
         private float jump_height = 0;                              // The number of pixels remaining from the jump, until we start falling again
         private List<Gdk.Rectangle?> pipes = new List<Gdk.Rectangle?>(); // the rectangles of the pipes ahead of the player for collision detection
-        private int score = 0;                                      // the game score
+        public int score { get; private set; }                      // the game score
         private uint animation_callback_id = 0;                     // the id of the animation callback
 
         class construct {
             set_css_name ("gamearea");                              // set CSS name for styling
         }
 
-        public GameArea () {
+        construct {
             birdie = new Gtk.Image ();                              // Create the image for the player
             try {
                 bird_up = Rsvg.pixbuf_from_file ("resource://org/gnome/Flappy/heli-up.svg");    // load the ascending image
@@ -37,6 +35,7 @@ namespace Flappy {
             }
             can_focus = true;                                       // set can_focus flag to be able to catch keyboard events
             key_release_event.connect (on_key_released);            // handle key-release-event
+            score = 0;
         }
 
         private bool on_key_released (Gdk.EventKey event) {
@@ -71,7 +70,7 @@ namespace Flappy {
                 first.data.x + first.data.width < child_x) {        // left the first pipe behind
                 pipes.remove_link(first);                           // we don't need this rectangle anymore
                 pipes.remove_link(pipes.first());                   // neither the next one, which is the bottom pair for the previous
-                score_changed(++score);                             // notify signal handlers of the score change
+                ++score;                                            // notify signal handlers of the score change
             } else if (first != null) {                             // if we haven't left this pipe behind yes
                 Gdk.Rectangle birdie = get_rectangle(child_x + w - h, child_y,
                     h,
@@ -145,7 +144,7 @@ namespace Flappy {
             state = GameState.INIT;
             jump_height = 0;
             score = 0;
-            score_changed (0);                                      // Notify score widget of the score reset
+            notify_property("score");
 
             pipes_count = 0;                                        // reset the pipes count
             ((Gtk.Scrollable)this).get_hadjustment().value = 0;     // reset the scroll
