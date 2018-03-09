@@ -16,7 +16,7 @@ resources = gnome.compile_resources(
 
 executable(
   'flappy-gnome',
-  'FlappyGnome.vala',
+  ['FlappyGnome.vala', 'gamearea.vala'],
   resources,
   dependencies: deps,
   install: true
