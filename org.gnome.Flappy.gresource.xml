@@ -1,0 +1,8 @@
+<gresources>
+  <gresource prefix="/org/gnome/Flappy">
+	<file>flappy.css</file>
+	<file>flappy-3.20.css</file>
+	<file>heli-up.svg</file>
+	<file>heli-down.svg</file>
+  </gresource>
+</gresources>

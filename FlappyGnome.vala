@@ -37,8 +37,8 @@ private class GameArea : Gtk.Layout {                           // Our GameArea 
     public GameArea () {
         birdie = new Gtk.Image ();                              // Create the image for the player
         try {
-            bird_up = Rsvg.pixbuf_from_file ("heli-up.svg");    // load the ascending image
-            bird_down = Rsvg.pixbuf_from_file ("heli-down.svg");// load the descending image
+            bird_up = Rsvg.pixbuf_from_file ("resource://org/gnome/Flappy/heli-up.svg");    // load the ascending image
+            bird_down = Rsvg.pixbuf_from_file ("resource://org/gnome/Flappy/heli-down.svg");// load the descending image
         } catch (Error e) {
             warning ("Error loading image, using arrows: %s",   // warn in case of an error
                      e.message);
@@ -228,14 +228,14 @@ int main (string[] args) {
 
     string css;
     if (Gtk.check_version (3, 20, 0) == null) {                 // check GTK version
-        css = "flappy-3.20.css";                                // use new CSS file on >= 3.20
+        css = "/org/gnome/Flappy/flappy-3.20.css";                                // use new CSS file on >= 3.20
     } else {
-        css = "flappy.css";
+        css = "/org/gnome/Flappy/flappy.css";
     }
 
     var css_provider = new Gtk.CssProvider ();                  // Initialize a CSS provider
     try {
-        css_provider.load_from_path (css);                      // from the css file in the current directory
+        css_provider.load_from_resource (css);                      // from the css file in the current directory
     } catch (GLib.Error e) {
         warning ("Error loading css styles from %s: %s",        // warn in case of an error
                     css, e.message);
